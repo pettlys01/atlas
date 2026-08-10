@@ -66,20 +66,11 @@
 .brand-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.03em; line-height: 1.1; }
 .brand-name small { display: block; font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--color-steel-soft); text-transform: uppercase; }
 
-/* O arquivo da logo tem fundo branco sólido (não é PNG transparente).
-   mix-blend-mode não resolve aqui: a marca usa azul-marinho e prata, não
-   branco puro, e num header escuro qualquer blend que escurece (multiply,
-   darken) apagaria a logo inteira junto com o fundo, não só o fundo.
-   Solução honesta sem precisar de arquivo novo: um "badge" branco
-   arredondado em volta da logo — padrão comum em headers escuros. Troca
-   trivial por PNG transparente depois, se/quando disponível. */
+/* logo.png tem fundo transparente de verdade — sem precisar de badge. */
 .brand-logo-header {
-  height: 44px;
+  height: 60px;
   width: auto;
   display: block;
-  background: var(--color-paper);
-  padding: 4px 10px;
-  border-radius: 8px;
   flex-shrink: 0;
 }
 .footer-brand .brand-logo-full {
