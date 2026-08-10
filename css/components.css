@@ -506,7 +506,8 @@
      acima — passa a ser tratado como item desse flex e senta do LADO do
      texto do hero em vez de embaixo, espremendo os dois e forçando o
      navegador a dar zoom out pra caber tudo. */
-  .hero { flex-direction: column; align-items: stretch; justify-content: center; padding-bottom: var(--space-8); }
+  .hero { flex-direction: column; align-items: stretch; justify-content: flex-start; padding-bottom: var(--space-8); }
+  .hero-content { padding-top: var(--space-8); }
   .cta-section { padding-bottom: var(--space-12); }
   .section.section--offset-top { padding-top: var(--space-12); }
   .site-footer.footer--offset-top { padding-top: var(--space-6); }
