@@ -50,21 +50,22 @@
 .topbar-whatsapp { display: inline-flex; align-items: center; gap: 6px; }
 
 .header-main {
-  background: rgba(18, 21, 26, 0.96);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid var(--color-line-dark);
+  border-bottom: 1px solid var(--color-line);
+  box-shadow: 0 1px 0 rgba(14, 27, 45, 0.04);
 }
 .header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  color: var(--color-paper);
+  color: var(--color-ink);
 }
 .brand { display: flex; align-items: center; gap: var(--space-1); text-decoration: none; padding-block: var(--space-2); }
 .brand-mark { width: 34px; height: 34px; flex-shrink: 0; }
 .brand-name { font-family: var(--font-heading); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.03em; line-height: 1.1; }
-.brand-name small { display: block; font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--color-steel-soft); text-transform: uppercase; }
+.brand-name small { display: block; font-family: var(--font-body); font-size: 0.6rem; letter-spacing: 0.18em; color: var(--color-steel); text-transform: uppercase; }
 
 /* logo.png tem fundo transparente de verdade — sem precisar de badge. */
 .brand-logo-header {
@@ -89,11 +90,11 @@
   font-size: var(--text-small);
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--color-steel-soft);
+  color: var(--color-steel);
   padding: var(--space-2) var(--space-3);
   transition: background var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard);
 }
-.nav-pill:hover { color: var(--color-paper); }
+.nav-pill:hover { color: var(--color-ink); }
 .nav-pill.is-active { background: var(--color-accent); color: var(--color-accent-contrast); }
 .nav-pill .chevron { margin-left: 4px; }
 
@@ -139,9 +140,9 @@
 .nav-toggle {
   display: none;
   background: none;
-  border: 1px solid var(--color-line-dark);
+  border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);
-  color: var(--color-paper);
+  color: var(--color-ink);
   padding: var(--space-1);
 }
 
@@ -270,13 +271,20 @@
 .split-media--tall .frame-block { width: 55%; height: 45%; }
 
 /* ===== Estatísticas ===== */
+/* Foto real de fundo em vez de cor chapada — quebra a sequência de
+   blocos só-tipografia que deixava essa parte da página com "cara de
+   template" (nada fotográfico por um bom trecho de rolagem). */
+.stats-section { position: relative; color: var(--color-paper); }
+.stats-section .hero-media::after {
+  background: linear-gradient(180deg, rgba(14,27,45,0.88) 0%, rgba(14,27,45,0.94) 100%);
+}
 .stats-bar {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: var(--space-4);
-  padding-block: var(--space-6);
-  border-top: 1px solid var(--color-line-dark);
-  border-bottom: 1px solid var(--color-line-dark);
+  padding-block: var(--space-12);
 }
 .stat-number { font-family: var(--font-display); font-size: var(--text-h1); color: var(--color-accent); margin-bottom: var(--space-1); }
 .stat-label { font-size: var(--text-small); color: var(--color-steel-soft); letter-spacing: 0.03em; }
@@ -548,6 +556,7 @@
 .contact-form { display: flex; flex-direction: column; gap: var(--space-3); }
 .form-row { display: flex; flex-direction: column; gap: 6px; }
 .form-row--split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+.form-row--split > div { display: flex; flex-direction: column; gap: 6px; }
 .form-row label { font-size: var(--text-small); font-weight: 600; color: var(--color-steel); }
 .form-row input, .form-row select, .form-row textarea {
   font: inherit;
