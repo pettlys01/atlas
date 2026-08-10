@@ -103,4 +103,17 @@
     track.addEventListener("mouseenter", function () { if (autoplayId) window.clearInterval(autoplayId); });
     track.addEventListener("mouseleave", startAutoplay);
   }
+
+  /* ---- Formulário de contato ----
+     Ainda não está ligado a nenhum backend (ver TODO em contato.html).
+     Por enquanto só evita o reload de página e avisa o usuário. */
+  var contactForm = document.getElementById("contactForm");
+  var formNote = document.getElementById("formNote");
+  if (contactForm && formNote) {
+    contactForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      formNote.hidden = false;
+      formNote.scrollIntoView({ block: "nearest", behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+  }
 })();

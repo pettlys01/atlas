@@ -1,7 +1,7 @@
 # Créditos das fotos (Pexels License — uso comercial livre, sem atribuição obrigatória)
 
-Estas são fotos de banco de imagens usadas como placeholder de alta qualidade até a Atlas
-Elevadores ter fotos reais de obra/produto. Recomendo trocar por fotos próprias assim que
+Estas são fotos de banco de imagens usadas como placeholder de alta qualidade até a HB
+Design ter fotos reais de obra/produto. Recomendo trocar por fotos próprias assim que
 possível — fotos genéricas de banco reduzem a credibilidade percebida em relação a fotos
 reais do trabalho da empresa.
 
