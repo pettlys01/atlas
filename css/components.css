@@ -69,7 +69,7 @@
 
 /* logo.png tem fundo transparente de verdade — sem precisar de badge. */
 .brand-logo-header {
-  height: 60px;
+  height: 78px;
   width: auto;
   display: block;
   flex-shrink: 0;
@@ -380,9 +380,9 @@
 .ba-caption { padding: var(--space-2) var(--space-3); font-size: var(--text-small); color: var(--color-steel); }
 
 /* ===== Vídeos da transformação ===== */
-.video-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--space-2); }
-.video-card { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--color-ink); }
-.video-card video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; }
+.video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.video-card { position: relative; border-radius: var(--radius-md); overflow: hidden; background: var(--color-mist); border: 1px solid var(--color-line); }
+.video-card video { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--color-ink); }
 .video-tag {
   position: absolute; top: var(--space-1); left: var(--space-1); z-index: 1;
   background: rgba(14, 27, 45, 0.75); color: #fff;
@@ -392,6 +392,7 @@
 }
 .video-tag--after { background: var(--color-accent); }
 .video-tag--highlight { background: var(--color-steel); }
+.video-caption { padding: var(--space-2) var(--space-2); margin: 0; font-size: var(--text-small); color: var(--color-steel); }
 
 /* ===== Benefícios: faixa única, painel + fotos com legenda ===== */
 .benefit-band {
@@ -666,7 +667,6 @@
   .model-grid { grid-template-columns: 1fr 1fr; }
   .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
   .ba-grid { grid-template-columns: 1fr; }
-  .video-grid { grid-template-columns: repeat(3, 1fr); }
   .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 @media (max-width: 560px) {
