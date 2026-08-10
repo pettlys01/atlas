@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-label="Foto placeholder: fachada de edifício ao entardecer">
+  <defs>
+    <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0c0f13"/>
+      <stop offset="55%" stop-color="#1c232b"/>
+      <stop offset="100%" stop-color="#2f3945"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a8763a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#a8763a" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#g1)"/>
+  <g opacity="0.5" stroke="#3d4854" stroke-width="2">
+    <line x1="200" y1="0" x2="60" y2="1000"/>
+    <line x1="420" y1="0" x2="320" y2="1000"/>
+    <line x1="640" y1="0" x2="600" y2="1000"/>
+    <line x1="900" y1="0" x2="920" y2="1000"/>
+    <line x1="1150" y1="0" x2="1230" y2="1000"/>
+    <line x1="1380" y1="0" x2="1520" y2="1000"/>
+  </g>
+  <rect x="0" y="0" width="1600" height="1000" fill="url(#beam)"/>
+  <text x="60" y="940" font-family="Georgia, serif" font-size="26" fill="#6b7480">placeholder — substituir por foto real da fachada</text>
+</svg>
