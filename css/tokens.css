@@ -73,3 +73,13 @@ html {
     --duration-slow: 1ms;
   }
 }
+
+/* Em telas de celular estreitas, o piso do clamp() dos títulos grandes
+   ainda ficava puxado (ex.: hero em 37.5px, h1 de seção em 30px) —
+   reduzido especificamente aqui, sem afetar tablet/desktop. */
+@media (max-width: 560px) {
+  :root {
+    --text-hero: clamp(2.1rem, 9vw, 2.75rem);
+    --text-h1: clamp(1.6rem, 7vw, 2.1rem);
+  }
+}
