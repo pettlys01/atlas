@@ -399,12 +399,12 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding-right: calc(100% - min(600px, 90vw));
+  padding-right: calc(100% - min(720px, 94vw));
 }
 .ba-track::-webkit-scrollbar { display: none; }
 .ba-slide {
   flex: 0 0 auto;
-  width: min(600px, 90vw);
+  width: min(720px, 94vw);
   scroll-snap-align: start;
   scroll-snap-stop: always;
   background: var(--color-paper);
@@ -739,4 +739,9 @@ a.footer-instagram:hover { background: var(--color-accent); color: var(--color-a
   .cta-phones a { font-size: var(--text-h2); }
   .lightbox-compare { flex-direction: column; max-height: 92vh; overflow-y: auto; }
   .lightbox-compare img { max-width: 92vw; max-height: 42vh; }
+  /* Antes/depois lado a lado divide a largura ao meio — no celular
+     cada foto fica pequena demais. Empilhado, cada uma usa a largura
+     inteira do card. */
+  .ba-compare { grid-template-columns: 1fr; }
+  .ba-compare figure { aspect-ratio: 16 / 10; }
 }
