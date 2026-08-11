@@ -117,48 +117,32 @@
     });
   }
 
-  /* ---- Carrossel de vídeos ----
+  /* ---- Carrosséis (vídeos, galeria, antes-e-depois) ----
      Arrastar/deslizar já funciona nativo (overflow-x + scroll-snap,
      tratado pelo navegador em touch e trackpad). As setas só precisam
      rolar a faixa por um "slide" de cada vez. */
-  var videoTrack = document.getElementById("videoTrack");
-  var videoPrev = document.getElementById("videoPrev");
-  var videoNext = document.getElementById("videoNext");
-  if (videoTrack && videoPrev && videoNext) {
-    var videoStep = function () {
-      var slide = videoTrack.querySelector(".video-slide");
-      if (!slide) return videoTrack.clientWidth;
-      var style = window.getComputedStyle(videoTrack);
+  function setupCarousel(trackId, prevId, nextId, slideSelector) {
+    var track = document.getElementById(trackId);
+    var prev = document.getElementById(prevId);
+    var next = document.getElementById(nextId);
+    if (!track || !prev || !next) return;
+    var step = function () {
+      var slide = track.querySelector(slideSelector);
+      if (!slide) return track.clientWidth;
+      var style = window.getComputedStyle(track);
       var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
       return slide.getBoundingClientRect().width + gap;
     };
-    videoPrev.addEventListener("click", function () {
-      videoTrack.scrollBy({ left: -videoStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    prev.addEventListener("click", function () {
+      track.scrollBy({ left: -step(), behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
-    videoNext.addEventListener("click", function () {
-      videoTrack.scrollBy({ left: videoStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
-    });
-  }
-
-  /* ---- Carrossel da galeria (mesmo padrão do de vídeos) ---- */
-  var galleryTrack = document.getElementById("galleryTrack");
-  var galleryPrev = document.getElementById("galleryPrev");
-  var galleryNext = document.getElementById("galleryNext");
-  if (galleryTrack && galleryPrev && galleryNext) {
-    var galleryStep = function () {
-      var slide = galleryTrack.querySelector(".gallery-slide");
-      if (!slide) return galleryTrack.clientWidth;
-      var style = window.getComputedStyle(galleryTrack);
-      var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
-      return slide.getBoundingClientRect().width + gap;
-    };
-    galleryPrev.addEventListener("click", function () {
-      galleryTrack.scrollBy({ left: -galleryStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
-    });
-    galleryNext.addEventListener("click", function () {
-      galleryTrack.scrollBy({ left: galleryStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    next.addEventListener("click", function () {
+      track.scrollBy({ left: step(), behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
   }
+  setupCarousel("videoTrack", "videoPrev", "videoNext", ".video-slide");
+  setupCarousel("galleryTrack", "galleryPrev", "galleryNext", ".gallery-slide");
+  setupCarousel("baTrack", "baPrev", "baNext", ".ba-slide");
 
   /* ---- Lightbox da galeria ---- */
   var galleryImgs = document.querySelectorAll(".gallery-slide img");
@@ -212,6 +196,68 @@
     lbClose.addEventListener("click", closeLightbox);
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape" && overlay.classList.contains("is-open")) closeLightbox();
+    });
+  }
+
+  /* ---- Lightbox de antes-e-depois: abre o par junto, ampliado ---- */
+  var baCompares = document.querySelectorAll(".ba-compare");
+  if (baCompares.length) {
+    var baOverlay = document.createElement("div");
+    baOverlay.className = "lightbox-overlay lightbox-overlay--pair";
+    baOverlay.setAttribute("role", "dialog");
+    baOverlay.setAttribute("aria-modal", "true");
+    baOverlay.setAttribute("aria-label", "Comparação ampliada");
+    baOverlay.innerHTML =
+      '<button type="button" class="lightbox-close" aria-label="Fechar comparação">×</button>' +
+      '<div class="lightbox-compare">' +
+        '<figure class="ba-before"><span class="ba-tag">Antes</span><img alt=""></figure>' +
+        '<figure class="ba-after"><span class="ba-tag ba-tag--after">Depois</span><img alt=""></figure>' +
+      '</div>';
+    document.body.appendChild(baOverlay);
+
+    var baImgs = baOverlay.querySelectorAll(".lightbox-compare img");
+    var baClose = baOverlay.querySelector(".lightbox-close");
+    var baLastFocused = null;
+
+    function openBaLightbox(compare) {
+      var srcImgs = compare.querySelectorAll("img");
+      baImgs[0].src = srcImgs[0].currentSrc || srcImgs[0].src;
+      baImgs[0].alt = srcImgs[0].alt || "";
+      baImgs[1].src = srcImgs[1].currentSrc || srcImgs[1].src;
+      baImgs[1].alt = srcImgs[1].alt || "";
+      baLastFocused = document.activeElement;
+      baOverlay.classList.add("is-open");
+      document.body.style.overflow = "hidden";
+      baClose.focus();
+    }
+
+    function closeBaLightbox() {
+      baOverlay.classList.remove("is-open");
+      document.body.style.overflow = "";
+      baImgs[0].src = "";
+      baImgs[1].src = "";
+      if (baLastFocused) baLastFocused.focus();
+    }
+
+    baCompares.forEach(function (compare) {
+      compare.setAttribute("tabindex", "0");
+      compare.setAttribute("role", "button");
+      compare.setAttribute("aria-label", "Ampliar comparação de antes e depois");
+      compare.addEventListener("click", function () { openBaLightbox(compare); });
+      compare.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openBaLightbox(compare);
+        }
+      });
+    });
+
+    baOverlay.addEventListener("click", function (e) {
+      if (e.target === baOverlay) closeBaLightbox();
+    });
+    baClose.addEventListener("click", closeBaLightbox);
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && baOverlay.classList.contains("is-open")) closeBaLightbox();
     });
   }
 })();

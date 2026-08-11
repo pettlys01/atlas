@@ -325,10 +325,11 @@
   display: flex;
   gap: var(--space-3);
   overflow-x: auto;
-  scroll-snap-type: x proximity;
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  padding-right: calc(100% - min(440px, 82vw));
 }
 .gallery-track::-webkit-scrollbar { display: none; }
 .gallery-slide {
@@ -337,6 +338,7 @@
   aspect-ratio: 3 / 4;
   margin: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   border-radius: var(--radius-md);
   overflow: hidden;
 }
@@ -376,15 +378,38 @@
 .lightbox-close:hover { background: rgba(255, 255, 255, 0.22); }
 @media (prefers-reduced-motion: reduce) { .lightbox-overlay { transition: none; } }
 
-/* ===== Antes e Depois ===== */
-.ba-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* Lightbox de antes-e-depois: as duas fotos lado a lado, ampliadas,
+   com Antes/Depois nos cantos superiores (esquerdo e direito) */
+.lightbox-compare { display: flex; gap: var(--space-1); max-width: 92vw; max-height: 88vh; }
+.lightbox-compare figure { position: relative; margin: 0; }
+.lightbox-compare img { display: block; max-width: 46vw; max-height: 88vh; object-fit: contain; border-radius: var(--radius-sm); box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6); background: var(--color-ink); }
+.lightbox-compare .ba-tag { top: var(--space-2); font-size: 0.8rem; padding: 5px 12px; }
+
+/* ===== Antes e Depois: carrossel (mesmo padrão da galeria/vídeos —
+   um grid fixo espremia demais cada foto quando tinha 3+ pares) ===== */
+.ba-carousel { position: relative; }
+.ba-track {
+  display: flex;
   gap: var(--space-4);
-  margin-bottom: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-right: calc(100% - min(600px, 90vw));
 }
-.ba-card { background: var(--color-paper); border: 1px solid var(--color-line); border-radius: var(--radius-md); overflow: hidden; }
-.ba-compare { display: grid; grid-template-columns: 1fr 1fr; }
+.ba-track::-webkit-scrollbar { display: none; }
+.ba-slide {
+  flex: 0 0 auto;
+  width: min(600px, 90vw);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: var(--color-paper);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.ba-compare { display: grid; grid-template-columns: 1fr 1fr; cursor: zoom-in; }
 .ba-compare figure { position: relative; margin: 0; aspect-ratio: 3 / 4; overflow: hidden; }
 .ba-compare img { width: 100%; height: 100%; object-fit: cover; }
 .ba-tag {
@@ -392,9 +417,14 @@
   background: rgba(14, 27, 45, 0.75); color: #fff;
   font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
   padding: 3px 9px; border-radius: 4px;
+  pointer-events: none;
 }
-.ba-tag--after { background: var(--color-accent); }
+.ba-tag--after { left: auto; right: var(--space-1); background: var(--color-accent); }
 .ba-caption { padding: var(--space-2) var(--space-3); font-size: var(--text-small); color: var(--color-steel); }
+.ba-carousel .carousel-arrow.edge { top: 42%; transform: translateY(-50%); background: var(--color-paper); border-color: var(--color-line); color: var(--color-ink); box-shadow: 0 6px 20px -8px rgba(14,27,45,.25); }
+.ba-carousel .carousel-arrow.edge:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.ba-carousel .carousel-arrow.edge.left { left: -18px; }
+.ba-carousel .carousel-arrow.edge.right { right: -18px; }
 
 /* ===== Vídeos da transformação: carrossel ===== */
 .video-carousel { position: relative; }
@@ -402,16 +432,17 @@
   display: flex;
   gap: var(--space-3);
   overflow-x: auto;
-  /* proximity (não mandatory): "mandatory" trava o navegador tentando
-     alinhar o último slide ao início da tela, mas não sobra conteúdo
-     depois dele pra isso — o resultado é nunca conseguir rolar até o
-     fim em telas largas (via seta ou mouse). Proximity ainda alinha
-     quando está perto de um slide, mas permite rolar livremente até
-     o final de verdade. */
-  scroll-snap-type: x proximity;
+  /* mandatory + scroll-snap-stop:always (no slide) trava a rolagem em
+     UM slide por vez, mesmo com toque rápido/flick forte no celular —
+     sem o stop:always, um toque forte pulava 2-3 itens de uma vez.
+     O padding-right no final dá espaço extra pro ÚLTIMO slide
+     conseguir alinhar ao início da tela (sem isso, ele nunca fica
+     alcançável em telas largas — não sobra conteúdo depois dele). */
+  scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  padding-right: calc(100% - min(300px, 78vw));
 }
 .video-track::-webkit-scrollbar { display: none; }
 .video-slide {
@@ -419,6 +450,7 @@
   flex: 0 0 auto;
   width: min(300px, 78vw);
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--color-mist);
@@ -711,11 +743,12 @@
   .benefit-band { grid-template-columns: 1fr 1fr; }
   .benefit-panel { grid-column: 1 / -1; }
   .model-grid { grid-template-columns: 1fr 1fr; }
-  .ba-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; gap: var(--space-3); }
 }
 @media (max-width: 560px) {
   .stats-bar, .benefit-band, .model-grid { grid-template-columns: 1fr; }
   .service-row { grid-template-columns: 40px 1fr; }
   .cta-phones a { font-size: var(--text-h2); }
+  .lightbox-compare { flex-direction: column; max-height: 92vh; overflow-y: auto; }
+  .lightbox-compare img { max-width: 92vw; max-height: 42vh; }
 }
