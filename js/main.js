@@ -117,6 +117,29 @@
     });
   }
 
+  /* ---- Carrossel de vídeos ----
+     Arrastar/deslizar já funciona nativo (overflow-x + scroll-snap,
+     tratado pelo navegador em touch e trackpad). As setas só precisam
+     rolar a faixa por um "slide" de cada vez. */
+  var videoTrack = document.getElementById("videoTrack");
+  var videoPrev = document.getElementById("videoPrev");
+  var videoNext = document.getElementById("videoNext");
+  if (videoTrack && videoPrev && videoNext) {
+    var videoStep = function () {
+      var slide = videoTrack.querySelector(".video-slide");
+      if (!slide) return videoTrack.clientWidth;
+      var style = window.getComputedStyle(videoTrack);
+      var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
+      return slide.getBoundingClientRect().width + gap;
+    };
+    videoPrev.addEventListener("click", function () {
+      videoTrack.scrollBy({ left: -videoStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+    videoNext.addEventListener("click", function () {
+      videoTrack.scrollBy({ left: videoStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+  }
+
   /* ---- Lightbox da galeria ---- */
   var galleryImgs = document.querySelectorAll(".gallery-item img");
   if (galleryImgs.length) {
