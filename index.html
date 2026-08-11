@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@400;700&family=Merriweather:wght@400&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/tokens.css?v=18">
-<link rel="stylesheet" href="css/base.css?v=18">
-<link rel="stylesheet" href="css/components.css?v=18">
+<link rel="stylesheet" href="css/tokens.css?v=19">
+<link rel="stylesheet" href="css/base.css?v=19">
+<link rel="stylesheet" href="css/components.css?v=19">
 <link rel="icon" type="image/png" href="assets/img/logo.png">
 </head>
 <body class="no-js">
@@ -218,22 +218,26 @@
         <p class="section-lead">Registro de obras entregues pela HB Design.</p>
       </div>
 
-      <div class="gallery-grid reveal">
-        <figure class="gallery-item gallery-item--lg">
-          <img src="assets/img/gallery-cabin-real.jpg" alt="Interior de cabine de elevador modernizada, revestimento em madeira e inox" loading="lazy">
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/img/after-door-1.jpg" alt="Porta de elevador finalizada em inox polido" loading="lazy">
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/img/gallery-floor-real.jpg" alt="Piso de granito instalado em cabine de elevador" loading="lazy">
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/img/after-door-2.png" alt="Porta de elevador com folheado de madeira finalizado" loading="lazy">
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/img/after-door-1-alt.jpg" alt="Porta de elevador em inox polido, outro ângulo" loading="lazy">
-        </figure>
+      <div class="gallery-carousel reveal">
+        <button class="carousel-arrow edge left" id="galleryPrev" aria-label="Foto anterior">‹</button>
+        <button class="carousel-arrow edge right" id="galleryNext" aria-label="Próxima foto">›</button>
+        <div class="gallery-track" id="galleryTrack">
+          <figure class="gallery-slide">
+            <img src="assets/img/gallery-cabin-real.jpg" alt="Interior de cabine de elevador modernizada, revestimento em madeira e inox" loading="lazy">
+          </figure>
+          <figure class="gallery-slide">
+            <img src="assets/img/after-door-1.jpg" alt="Porta de elevador finalizada em inox polido" loading="lazy">
+          </figure>
+          <figure class="gallery-slide">
+            <img src="assets/img/gallery-floor-real.jpg" alt="Piso de granito instalado em cabine de elevador" loading="lazy">
+          </figure>
+          <figure class="gallery-slide">
+            <img src="assets/img/after-door-2.png" alt="Porta de elevador com folheado de madeira finalizado" loading="lazy">
+          </figure>
+          <figure class="gallery-slide">
+            <img src="assets/img/after-door-1-alt.jpg" alt="Porta de elevador em inox polido, outro ângulo" loading="lazy">
+          </figure>
+        </div>
       </div>
     </div>
   </section>

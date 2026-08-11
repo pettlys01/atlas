@@ -140,8 +140,28 @@
     });
   }
 
+  /* ---- Carrossel da galeria (mesmo padrão do de vídeos) ---- */
+  var galleryTrack = document.getElementById("galleryTrack");
+  var galleryPrev = document.getElementById("galleryPrev");
+  var galleryNext = document.getElementById("galleryNext");
+  if (galleryTrack && galleryPrev && galleryNext) {
+    var galleryStep = function () {
+      var slide = galleryTrack.querySelector(".gallery-slide");
+      if (!slide) return galleryTrack.clientWidth;
+      var style = window.getComputedStyle(galleryTrack);
+      var gap = parseFloat(style.columnGap || style.gap || "0") || 0;
+      return slide.getBoundingClientRect().width + gap;
+    };
+    galleryPrev.addEventListener("click", function () {
+      galleryTrack.scrollBy({ left: -galleryStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+    galleryNext.addEventListener("click", function () {
+      galleryTrack.scrollBy({ left: galleryStep(), behavior: prefersReducedMotion ? "auto" : "smooth" });
+    });
+  }
+
   /* ---- Lightbox da galeria ---- */
-  var galleryImgs = document.querySelectorAll(".gallery-item img");
+  var galleryImgs = document.querySelectorAll(".gallery-slide img");
   if (galleryImgs.length) {
     var overlay = document.createElement("div");
     overlay.className = "lightbox-overlay";
